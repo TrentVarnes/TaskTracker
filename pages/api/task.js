@@ -1,3 +1,7 @@
+/**
+ * API that makes HTTP calls using the GET and POST methods 
+ */
+
 import sequelize from "../../database/config/config";
 import Tasks from "../../database/models/task";
 

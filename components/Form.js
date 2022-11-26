@@ -1,21 +1,22 @@
+/**
+ * This component uses react-hook-form to add new tasks to the task tracker app
+ */
+
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 
+
+/**
+ * Form returns the react-hook-form
+ * @param tasks this represents the get API call which return all tasks 
+ * @returns a react-hook-form to accept new tasks
+ */
 const Form = ({tasks = []}) => {
     const {register, handleSubmit, formState: { isValid, errors }} = useForm({
         mode: 'onChange',
     });
 
-    const styles = {
-        container: {
-          width: "80%",
-          margin: "0 auto",
-        },
-        input: {
-          width: "100%",
-        },
-      };
     const {push} = useRouter();
 
         const onSubmit = async (data) => {
@@ -38,14 +39,22 @@ const Form = ({tasks = []}) => {
         };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register('name' , {required: true})} type="text" placeholder="Enter a task" />
-            {errors.name && <span>Please enter a task</span>}
-            <Button variant="primary" size="sm" type="submit" disabled={!isValid}>Create Task</Button>
-        </form>
+        <div className="App">
+            <form width="field-width" onSubmit={handleSubmit(onSubmit)}>
+                <input {...register('name' , {required: true, maxLength: 42})} type="text" variant="outlined" placeholder="Enter a task" />
+                {errors.name && errors.name.type === "required" && (
+                <p class="text-center" role="alert">This is required</p>)}
+                {errors.name && errors.name.type === "maxLength" && (
+                <p class="text-center" role="alert">Task can be no longer than 42 characters</p>)}
+                <div className="d-grid gap-2">
+                    <Button variant="primary" size="sm" type="submit" disabled={!isValid}>Create Task</Button>
+                </div>
+            </form>
+        </div>
     );
 };
 
+// fetch all tasks using API GET call 
 export async function getServerSideProps() {
     const response = await fetch("http://localhost:3000/api/task");
     const tasks = await response.json();

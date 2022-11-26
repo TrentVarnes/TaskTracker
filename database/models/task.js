@@ -1,8 +1,12 @@
+/**
+ * This creates the model for tasks containing id, name, 
+ * status, createdAt, and updatedAt which represents completedAt
+ */
+
 import sequelize from '../config/config';
 import Sequelize from 'sequelize';
 
 const Tasks = sequelize.define('Tasks', {
-  // Model attributes are defined here
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -17,10 +21,10 @@ const Tasks = sequelize.define('Tasks', {
     defaultValue: false,
   },
   createdAt: {
-    type: Sequelize.DATE
+    type: Sequelize.DATEONLY
   },
   updatedAt: {
-    type: Sequelize.DATE
+    type: Sequelize.DATEONLY,
   }
 });
 

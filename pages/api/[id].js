@@ -1,4 +1,7 @@
-import { where } from "sequelize";
+/**
+ * API that makes HTTP calls that are specific to the task id
+ */
+
 import sequelize from "../../database/config/config";
 import Tasks from "../../database/models/task";
 
@@ -7,28 +10,14 @@ export default async function handler(req, res) {
     const {id} = req.query;
     await sequelize.authenticate();
 
-
-    // Read
-    // Get task by id
-    if(req.method === "GET") {
-        try {
-            const data = JSON.parse(req.body);
-            const findTask = await Tasks.findOne({where: {id: id}});
-            res.status(201).json(findTask)
-        } catch (error) {
-            res.status(500).json({message:"task not found"})
-            console.error;
-        }
-    }
-
     // Update
-    //update task status
+    //update task status using task id 
     if(method === "PUT") {
         try {
             //const data = JSON.parse(req.body);
             const {query: {id}} = req;
             const findTask = await Tasks.findOne({where: {id: id}});
-            const result = await findTask.update({status: true});
+            const result = await findTask.update({status: req.body});
             res.status(200).json(result);
             return result;
         } catch (error) {
