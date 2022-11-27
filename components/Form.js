@@ -53,15 +53,3 @@ export default function Form({tasks = []}) {
         </div>
     );
 };
-
-// fetch all tasks using API GET call 
-export async function getServerSideProps() {
-    const response = await fetch("http://localhost:3000/api/task");
-    const tasks = await response.json();
-  
-    return {
-      props: {
-        tasks,
-      }
-    }
-};
