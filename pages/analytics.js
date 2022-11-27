@@ -25,13 +25,14 @@ export default function Analytics({tasks = {}}) {
   // This loops through the Tasks gathered from the GET API call and gets data from each task 
   tasks.forEach(element => {
     const taskD = new Date(element.createdAt)
+    const taskD2 = new Date(element.updatedAt)
     // if statement to see if the task was created within the two query param dates 
     if (thenD.getTime() <= taskD.getTime() && nowD.getTime() >= taskD.getTime()){
       createdTasks.push(element);
     };
 
     // if statement to see if the task was completed within the two query param dates 
-    if (thenD.getTime() <= taskD.getTime() && nowD.getTime() >= taskD.getTime() && element.status == true)
+    if (thenD.getTime() <= taskD2.getTime() && nowD.getTime() >= taskD2.getTime() && element.status == true)
       completedTasks.push(element);
     });
 
@@ -47,7 +48,7 @@ export default function Analytics({tasks = {}}) {
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1">
-        <Accordion.Header>How many taks were completed?</Accordion.Header>
+        <Accordion.Header>How many tasks were completed?</Accordion.Header>
         <Accordion.Body>
           <p>You completed this many tasks from {query.then} to {query.now}: </p>
           <h1>{completedTasks.length}</h1>

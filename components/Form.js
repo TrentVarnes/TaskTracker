@@ -12,7 +12,7 @@ import Button from "react-bootstrap/Button";
  * @param tasks this represents the get API call which return all tasks 
  * @returns a react-hook-form to accept new tasks
  */
-const Form = ({tasks = []}) => {
+export default function Form({tasks = []}) {
     const {register, handleSubmit, formState: { isValid, errors }} = useForm({
         mode: 'onChange',
     });
@@ -65,5 +65,3 @@ export async function getServerSideProps() {
       }
     }
 };
-
-export default Form;
