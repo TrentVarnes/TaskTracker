@@ -43,3 +43,25 @@ The NavBar.js folder is implemented using React-Bootstrap NavBar. This creates a
 The index.js folder is the home page of this application. It is imported the contents of the Form.js and Todo.js folders. It then displays these inside of a React-Bootstrap Card in the center of the page. This page also uses the function getServerSideProps() to make a fetch() GET call which will return all Tasks, this is passed as the parameter to the Todo and Form functions returned in this page. 
 
 The analytics.js folder represents the analysis page link accessed via the NavBar. It uses query from useRouter to access the query contents passed in. This page exports a function called Analytics() which takes a parameter of a list of tasks. This page also uses the function getServerSideProps() to make a fetch() GET call which will return all Tasks, this is stored as the parameter to the Analytics() function. This page creates two empty arrays one called createdTasks and one completedTasks. There are two more consts created one named then to create a date representing  query parameter query.then and one named now to represent the query parameter query.now. This page then loops through the tasks passed as a parameter and runs two if statements on each task. Before the if statements are ran the task.createdAt and task.updatedAt values are accessed and saved in a new date named taskD and taskD2. The first if statements makes sure this task was created between the two query dates. If this is true the task is added to the createdTasks array. The next if statement also checks if the task was updated between the two dates and it also ensures the tasks status is set to true. It this statement returns true then the task is added to the completedTasks array. The code is written in these functions that it should work with any dates put in. The analytics page now displays this information in a React-Bootstrap Accordion that will display how many tasks were created and how many were completed within the query parameter dates. 
+
+
+## How to run this project
+### You can clone this project using https://github.com/TrentVarnes/Task_Tracker.git
+
+
+Install Node
+1. You need to have node installed, this can be done via installing node from their site and downloading the correct version depending on your OS. 
+   
+Clone the repository 
+1. git clone https://github.com/TrentVarnes/Task_Tracker.git into a folde and open the folder in your preferred editor
+2. install next via npm install next react react-dom inside of your new folder 
+3. You can run this project using npm run dev
+   
+You must have postgreSQL installed on your machine and create a database to connect to this application. 
+
+1. In the config.js file I used my personal login info to setup with my db on my laptop, replace this information to connect to a database on your machine. 
+2. A problem I ran into only once is when you first connect to a new DB you may have to refresh the page after you enter the first task. After that the page works as it should. 
+
+At this point you should be able to use npm run dev and successfully use the Task Tracker app via localhost. If it gives a sequelize error you may have to download sequelize which can be done via:
+1. npm install --save sequelize
+2. npm install --save pg pg-hstore
